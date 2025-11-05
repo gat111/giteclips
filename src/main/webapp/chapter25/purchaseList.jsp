@@ -34,7 +34,10 @@
 			<td>${purchase.customerName}</td>
 			<td>${purchase.customerAddress}</td>
 			<td>${purchase.productPrice * purchase.productCount}</td>
-			<td><a href="PurchaseDelete.action?id=${purchase.id}" class="delete-link">削除</a></td>
+			<td>
+				<a href="PurchaseUpdate.action?id=${purchase.id}" class="edit-link">編集</a> | 
+				<a href="PurchaseDelete.action?id=${purchase.id}" class="delete-link">削除</a>
+			</td>
 		</tr>
 	</c:forEach>
 </table>

@@ -1,13 +1,14 @@
 package dao;
 
-import bean.Item;
-import bean.Product;
-import bean.Purchase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import bean.Item;
+import bean.Product;
+import bean.Purchase;
 
 public class PurchaseDAO extends DAO {
 	public boolean insert(List<Item> cart, String name, String address) throws Exception {
@@ -99,5 +100,48 @@ public class PurchaseDAO extends DAO {
 		st.close();
 		con.close();
 		return result;
+	}
+
+	public int update(Purchase purchase) throws Exception {
+		Connection con = getConnection();
+		PreparedStatement st = con.prepareStatement(
+			"update purchase set product_id=?, product_name=?, product_price=?, " +
+			"product_count=?, customer_name=?, customer_address=? where id=?");
+		st.setInt(1, purchase.getProductId());
+		st.setString(2, purchase.getProductName());
+		st.setInt(3, purchase.getProductPrice());
+		st.setInt(4, purchase.getProductCount());
+		st.setString(5, purchase.getCustomerName());
+		st.setString(6, purchase.getCustomerAddress());
+		st.setInt(7, purchase.getId());
+		int result = st.executeUpdate();
+		st.close();
+		con.close();
+		return result;
+	}
+
+	public Purchase findById(int id) throws Exception {
+		Connection con = getConnection();
+		PreparedStatement st = con.prepareStatement("select * from purchase where id=?");
+		st.setInt(1, id);
+		ResultSet rs = st.executeQuery();
+		
+		Purchase purchase = null;
+		if (rs.next()) {
+			purchase = new Purchase();
+			purchase.setId(rs.getInt("id"));
+			purchase.setProductId(rs.getInt("product_id"));
+			purchase.setProductName(rs.getString("product_name"));
+			purchase.setProductPrice(rs.getInt("product_price"));
+			purchase.setProductCount(rs.getInt("product_count"));
+			purchase.setCustomerName(rs.getString("customer_name"));
+			purchase.setCustomerAddress(rs.getString("customer_address"));
+		}
+		
+		rs.close();
+		st.close();
+		con.close();
+		
+		return purchase;
 	}
 }
