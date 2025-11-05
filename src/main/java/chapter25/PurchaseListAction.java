@@ -1,11 +1,12 @@
 package chapter25;
 
+import java.util.List;
+
 import bean.Purchase;
 import dao.PurchaseDAO;
-import tool.Action;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import tool.Action;
 
 public class PurchaseListAction extends Action {
 	@Override
@@ -21,19 +22,11 @@ public class PurchaseListAction extends Action {
 			productName = null;
 		}
 
-		if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
-			int tmp = minPrice;
-			minPrice = maxPrice;
-			maxPrice = tmp;
-		}
-
 		PurchaseDAO dao = new PurchaseDAO();
 		List<Purchase> list = dao.search(minPrice, maxPrice, productName);
 
 		request.setAttribute("list", list);
-		request.setAttribute("minPrice", minPriceParam);
-		request.setAttribute("maxPrice", maxPriceParam);
-		request.setAttribute("productName", request.getParameter("productName"));
+		
 
 		return "purchaseList.jsp";
 	}
