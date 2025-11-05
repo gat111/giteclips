@@ -2,9 +2,9 @@ package chapter25;
 
 import bean.Purchase;
 import dao.PurchaseDAO;
-import tool.Action;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
 
 public class PurchaseUpdateAction extends Action {
 	@Override
