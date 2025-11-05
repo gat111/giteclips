@@ -1,0 +1,44 @@
+<%@page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@include file="../header.html" %>
+<%@include file="menu.jsp" %>
+
+<h2>購入履歴一覧</h2>
+
+<form action="PurchaseList.action" method="post" style="margin-bottom:1em;">
+	<label>最低価格: <input type="text" name="minPrice" value="${minPrice}"></label>
+	<label>最高価格: <input type="text" name="maxPrice" value="${maxPrice}"></label>
+	<label>商品名: <input type="text" name="productName" value="${productName}"></label>
+	<input type="submit" value="検索">
+</form>
+
+<table style="border-collapse:separate;border-spacing:10px;" border="1">
+	<tr>
+		<th>ID</th>
+		<th>商品ID</th>
+		<th>商品名</th>
+		<th>価格</th>
+		<th>数量</th>
+		<th>購入者名</th>
+		<th>住所</th>
+		<th>小計</th>
+	</tr>
+	<c:forEach var="purchase" items="${list}">
+		<tr>
+			<td>${purchase.id}</td>
+			<td>${purchase.productId}</td>
+			<td>${purchase.productName}</td>
+			<td>${purchase.productPrice}</td>
+			<td>${purchase.productCount}</td>
+			<td>${purchase.customerName}</td>
+			<td>${purchase.customerAddress}</td>
+			<td>${purchase.productPrice * purchase.productCount}</td>
+		</tr>
+	</c:forEach>
+</table>
+
+<c:if test="${empty list}">
+	<p>該当する購入履歴はありません。</p>
+</c:if>
+
+<%@include file="../footer.html" %>

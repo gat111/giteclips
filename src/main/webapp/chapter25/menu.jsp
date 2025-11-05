@@ -7,4 +7,6 @@
 <a href="../chapter24/logout-in.jsp">ログアウト</a>
 <a href="../chapter25/UserList.action">ユーザー一覧</a>
 <a href="../chapter25/userInsert.jsp">ユーザー追加</a>
+<a href="../chapter25/PurchaseList.action">購入履歴</a>
+
 <hr>
