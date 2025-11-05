@@ -90,4 +90,14 @@ public class PurchaseDAO extends DAO {
 
 		return list;
 	}
+
+	public int delete(int id) throws Exception {
+		Connection con = getConnection();
+		PreparedStatement st = con.prepareStatement("delete from purchase where id=?");
+		st.setInt(1, id);
+		int result = st.executeUpdate();
+		st.close();
+		con.close();
+		return result;
+	}
 }

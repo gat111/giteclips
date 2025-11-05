@@ -5,7 +5,7 @@
 
 <h2>購入履歴一覧</h2>
 
-<form action="PurchaseList.action" method="post" style="margin-bottom:1em;">
+<form action="purchaseList.action" method="post" style="margin-bottom:1em;">
 	<label>最低価格: <input type="text" name="minPrice" value="${minPrice}"></label>
 	<label>最高価格: <input type="text" name="maxPrice" value="${maxPrice}"></label>
 	<label>商品名: <input type="text" name="productName" value="${productName}"></label>
@@ -22,6 +22,7 @@
 		<th>購入者名</th>
 		<th>住所</th>
 		<th>小計</th>
+		<th>操作</th>
 	</tr>
 	<c:forEach var="purchase" items="${list}">
 		<tr>
@@ -33,6 +34,7 @@
 			<td>${purchase.customerName}</td>
 			<td>${purchase.customerAddress}</td>
 			<td>${purchase.productPrice * purchase.productCount}</td>
+			<td><a href="PurchaseDelete.action?id=${purchase.id}" class="delete-link">削除</a></td>
 		</tr>
 	</c:forEach>
 </table>
@@ -40,5 +42,15 @@
 <c:if test="${empty list}">
 	<p>該当する購入履歴はありません。</p>
 </c:if>
+
+<script>
+	document.querySelectorAll('.delete-link').forEach(link => {
+		link.addEventListener('click', event => {
+			if (!confirm('削除してもよろしいですか？')) {
+				event.preventDefault();
+			}
+		});
+	});
+</script>
 
 <%@include file="../footer.html" %>
