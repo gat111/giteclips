@@ -34,7 +34,7 @@
 			<td>${purchase.customerName}</td>
 			<td>${purchase.customerAddress}</td>
 			<td>${purchase.productPrice * purchase.productCount}</td>
-			<td><a href="PurchaseDelete.action?id=${purchase.id}" class="delete-link">削除</a></td>
+			<td><a href="PurchaseDelete.action?id=${purchase.id}">削除</a></td>
 		</tr>
 	</c:forEach>
 </table>
@@ -43,14 +43,5 @@
 	<p>該当する購入履歴はありません。</p>
 </c:if>
 
-<script>
-	document.querySelectorAll('.delete-link').forEach(link => {
-		link.addEventListener('click', event => {
-			if (!confirm('削除してもよろしいですか？')) {
-				event.preventDefault();
-			}
-		});
-	});
-</script>
 
 <%@include file="../footer.html" %>
